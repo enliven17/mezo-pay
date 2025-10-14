@@ -16,29 +16,33 @@ export function TransactionStatus({ status, hash, message }: TransactionStatusPr
         return {
           icon: <LoadingSpinner size="sm" />,
           text: 'Waiting for signature...',
-          color: 'text-blue-600',
-          bg: 'bg-blue-50'
+          color: 'text-blue-400',
+          bg: 'bg-blue-900/20',
+          border: 'border-blue-600/30'
         }
       case 'confirming':
         return {
-          icon: <Clock className="w-5 h-5 text-yellow-600" />,
+          icon: <Clock className="w-5 h-5 text-yellow-400" />,
           text: 'Transaction confirming...',
-          color: 'text-yellow-600',
-          bg: 'bg-yellow-50'
+          color: 'text-yellow-400',
+          bg: 'bg-yellow-900/20',
+          border: 'border-yellow-600/30'
         }
       case 'success':
         return {
-          icon: <CheckCircle className="w-5 h-5 text-green-600" />,
+          icon: <CheckCircle className="w-5 h-5 text-green-400" />,
           text: 'Transaction successful!',
-          color: 'text-green-600',
-          bg: 'bg-green-50'
+          color: 'text-green-400',
+          bg: 'bg-green-900/20',
+          border: 'border-green-600/30'
         }
       case 'error':
         return {
-          icon: <XCircle className="w-5 h-5 text-red-600" />,
+          icon: <XCircle className="w-5 h-5 text-red-400" />,
           text: message || 'Transaction failed',
-          color: 'text-red-600',
-          bg: 'bg-red-50'
+          color: 'text-red-400',
+          bg: 'bg-red-900/20',
+          border: 'border-red-600/30'
         }
     }
   }
@@ -46,7 +50,7 @@ export function TransactionStatus({ status, hash, message }: TransactionStatusPr
   const config = getStatusConfig()
 
   return (
-    <div className={`p-3 rounded-lg ${config.bg} border border-opacity-20`}>
+    <div className={`p-3 rounded-lg ${config.bg} border ${config.border}`}>
       <div className="flex items-center space-x-3">
         {config.icon}
         <div className="flex-1">
@@ -58,7 +62,7 @@ export function TransactionStatus({ status, hash, message }: TransactionStatusPr
               href={`https://explorer.test.mezo.org/tx/${hash}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-blue-600 hover:underline"
+              className="text-xs text-blue-400 hover:text-blue-300 hover:underline"
             >
               View on Explorer
             </a>

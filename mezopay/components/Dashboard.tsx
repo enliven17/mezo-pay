@@ -62,7 +62,7 @@ export function Dashboard() {
     <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
       {/* Header Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-xl shadow-2xl">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-2xl hover:bg-gray-750 transition-colors">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-300">Total Collateral</p>
@@ -75,7 +75,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-xl shadow-2xl">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-2xl hover:bg-gray-750 transition-colors">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-300">MUSD Minted</p>
@@ -88,7 +88,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-xl shadow-2xl">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-2xl hover:bg-gray-750 transition-colors">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-300">Available Credit</p>
@@ -101,7 +101,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-xl shadow-2xl">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-2xl hover:bg-gray-750 transition-colors">
           <CollateralHealth ratio={collateralRatio} />
         </div>
       </div>
@@ -132,12 +132,12 @@ export function Dashboard() {
 
       {/* Liquidation Warning */}
       {collateralRatio > 0 && collateralRatio < 180 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8">
+        <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4 mb-8">
           <div className="flex items-center space-x-3">
-            <AlertTriangle className="w-5 h-5 text-yellow-600" />
+            <AlertTriangle className="w-5 h-5 text-yellow-400" />
             <div>
-              <p className="font-semibold text-yellow-800">Liquidation Risk Warning</p>
-              <p className="text-yellow-700">
+              <p className="font-semibold text-yellow-300">Liquidation Risk Warning</p>
+              <p className="text-yellow-200">
                 Your collateral ratio is {collateralRatio}%. Add more collateral or repay debt to avoid liquidation at 110%.
               </p>
             </div>
@@ -147,12 +147,12 @@ export function Dashboard() {
 
       {/* No Position Warning */}
       {!isActive && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+        <div className="bg-blue-900/20 border border-blue-600/30 rounded-lg p-4 mb-8">
           <div className="flex items-center space-x-3">
-            <CreditCard className="w-5 h-5 text-blue-600" />
+            <CreditCard className="w-5 h-5 text-blue-400" />
             <div>
-              <p className="font-semibold text-blue-800">Get Started</p>
-              <p className="text-blue-700">
+              <p className="font-semibold text-blue-300">Get Started</p>
+              <p className="text-blue-200">
                 Deposit Bitcoin as collateral to start borrowing MUSD and get your virtual credit card.
               </p>
             </div>

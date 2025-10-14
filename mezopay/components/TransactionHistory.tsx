@@ -78,34 +78,34 @@ export function TransactionHistory() {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6">
+    <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-2xl p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold">Transaction History</h2>
-        <button className="text-blue-500 hover:text-blue-600 text-sm font-medium">
+        <h2 className="text-xl font-semibold text-white">Transaction History</h2>
+        <button className="text-blue-400 hover:text-blue-300 text-sm font-medium">
           View All
         </button>
       </div>
 
       <div className="space-y-4">
         {mockTransactions.map((transaction) => (
-          <div key={transaction.id} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition-colors">
+          <div key={transaction.id} className="flex items-center justify-between p-4 hover:bg-gray-700 rounded-lg transition-colors">
             <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center">
                 {getTransactionIcon(transaction.type)}
               </div>
               <div>
-                <p className="font-medium text-gray-900">{transaction.description}</p>
-                <p className="text-sm text-gray-500">{formatDate(transaction.date)}</p>
+                <p className="font-medium text-white">{transaction.description}</p>
+                <p className="text-sm text-gray-400">{formatDate(transaction.date)}</p>
               </div>
             </div>
             
             <div className="text-right">
               <p className={`font-semibold ${
-                transaction.amount > 0 ? 'text-green-600' : 'text-red-600'
+                transaction.amount > 0 ? 'text-green-400' : 'text-red-400'
               }`}>
                 {formatAmount(transaction.amount, transaction.currency)}
               </p>
-              <p className="text-sm text-gray-500 capitalize">{transaction.status}</p>
+              <p className="text-sm text-gray-400 capitalize">{transaction.status}</p>
             </div>
           </div>
         ))}
@@ -113,9 +113,9 @@ export function TransactionHistory() {
 
       {mockTransactions.length === 0 && (
         <div className="text-center py-12">
-          <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500">No transactions yet</p>
-          <p className="text-sm text-gray-400">Your transaction history will appear here</p>
+          <CreditCard className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+          <p className="text-gray-400">No transactions yet</p>
+          <p className="text-sm text-gray-500">Your transaction history will appear here</p>
         </div>
       )}
     </div>

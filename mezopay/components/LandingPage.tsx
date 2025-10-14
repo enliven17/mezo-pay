@@ -53,7 +53,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
 
         {/* Demo Card */}
         <div className="flex justify-center">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl shadow-2xl max-w-md transform hover:scale-105 transition-transform duration-200">
+          <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl max-w-md transform hover:scale-105 transition-transform duration-200">
             <div className="card-gradient p-6 rounded-xl text-white mb-4 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-12 -mb-12"></div>
@@ -99,7 +99,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
 
       {/* Stats */}
       <div className="grid md:grid-cols-3 gap-8 mb-16">
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl shadow-2xl text-center">
+        <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl text-center hover:bg-gray-750 transition-colors">
           <div className="w-16 h-16 bitcoin-gradient rounded-full flex items-center justify-center mx-auto mb-4">
             <Bitcoin className="w-8 h-8 text-white" />
           </div>
@@ -108,7 +108,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
           <p className="text-sm text-gray-400 mt-1">Industry leading efficiency</p>
         </div>
         
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl shadow-2xl text-center">
+        <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl text-center hover:bg-gray-750 transition-colors">
           <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <DollarSign className="w-8 h-8 text-white" />
           </div>
@@ -117,7 +117,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
           <p className="text-sm text-gray-400 mt-1">Fixed rate, no surprises</p>
         </div>
         
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl shadow-2xl text-center">
+        <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl text-center hover:bg-gray-750 transition-colors">
           <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <CreditCard className="w-8 h-8 text-white" />
           </div>
@@ -129,7 +129,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
 
       {/* Features */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-all duration-200">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
           <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
             <CreditCard className="w-6 h-6 text-white" />
           </div>
@@ -137,7 +137,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
           <p className="text-gray-300 text-sm">Get credit instantly by depositing Bitcoin as collateral</p>
         </div>
         
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-all duration-200">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
           <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
             <Shield className="w-6 h-6 text-white" />
           </div>
@@ -145,7 +145,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
           <p className="text-gray-300 text-sm">Your Bitcoin stays in your control with smart contract security</p>
         </div>
         
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-all duration-200">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
           <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
             <Zap className="w-6 h-6 text-white" />
           </div>
@@ -153,7 +153,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
           <p className="text-gray-300 text-sm">Fixed 1% annual rate on your MUSD borrowing</p>
         </div>
         
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-all duration-200">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
           <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
             <TrendingUp className="w-6 h-6 text-white" />
           </div>
@@ -170,7 +170,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
             <div className="w-20 h-20 bg-bitcoin rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
               <Bitcoin className="w-10 h-10 text-white" />
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+            <div className="bg-gray-700 border border-gray-600 rounded-xl p-6">
               <h3 className="text-xl font-semibold mb-3">1. Deposit Bitcoin</h3>
               <p className="text-gray-300">Deposit Bitcoin as collateral to secure your credit line on Mezo testnet</p>
             </div>
@@ -180,7 +180,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
             <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
               <DollarSign className="w-10 h-10 text-white" />
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+            <div className="bg-gray-700 border border-gray-600 rounded-xl p-6">
               <h3 className="text-xl font-semibold mb-3">2. Mint MUSD</h3>
               <p className="text-gray-300">Mint MUSD stablecoin up to 66% of your collateral value at 1% APR</p>
             </div>
@@ -190,7 +190,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
             <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
               <CreditCard className="w-10 h-10 text-white" />
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+            <div className="bg-gray-700 border border-gray-600 rounded-xl p-6">
               <h3 className="text-xl font-semibold mb-3">3. Spend Anywhere</h3>
               <p className="text-gray-300">Get your virtual card and spend MUSD anywhere cards are accepted</p>
             </div>

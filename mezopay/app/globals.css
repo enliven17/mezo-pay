@@ -74,3 +74,39 @@ body {
     transform: translate(50px, 50px); 
   }
 }
+
+/* RainbowKit Dark Theme Customization */
+[data-rk] {
+  --rk-colors-modalBackground: rgb(31, 41, 55) !important;
+  --rk-colors-modalBorder: rgb(75, 85, 99) !important;
+  --rk-colors-generalBorder: rgb(75, 85, 99) !important;
+  --rk-colors-actionButtonBorder: rgb(75, 85, 99) !important;
+  --rk-colors-actionButtonSecondaryBackground: rgb(55, 65, 81) !important;
+  --rk-colors-closeButton: rgb(156, 163, 175) !important;
+  --rk-colors-closeButtonBackground: rgb(55, 65, 81) !important;
+  --rk-colors-connectButtonBackground: rgb(249, 115, 22) !important;
+  --rk-colors-connectButtonText: white !important;
+  --rk-colors-error: rgb(248, 113, 113) !important;
+  --rk-colors-generalBorderDim: rgb(55, 65, 81) !important;
+  --rk-colors-menuItemBackground: rgb(55, 65, 81) !important;
+  --rk-colors-modalBackdrop: rgba(0, 0, 0, 0.8) !important;
+  --rk-colors-profileAction: rgb(55, 65, 81) !important;
+  --rk-colors-profileActionHover: rgb(75, 85, 99) !important;
+  --rk-colors-profileForeground: rgb(31, 41, 55) !important;
+  --rk-colors-selectedOptionBorder: rgb(249, 115, 22) !important;
+  --rk-colors-standby: rgb(156, 163, 175) !important;
+}
+
+/* Custom RainbowKit button styling */
+[data-rk] button[data-testid="rk-connect-button"] {
+  background: linear-gradient(135deg, #f97316 0%, #ff6b35 100%) !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-rk] button[data-testid="rk-connect-button"]:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3) !important;
+}

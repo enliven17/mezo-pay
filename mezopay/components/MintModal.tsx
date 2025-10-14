@@ -41,13 +41,13 @@ export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }
   }, [isConfirmed, onClose])
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl max-w-md w-full p-6">
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+      <div className="bg-gray-800 border border-gray-700 rounded-xl max-w-md w-full p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold">Mint MUSD</h2>
+          <h2 className="text-xl font-semibold text-white">Mint MUSD</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-700 rounded-lg transition-colors text-gray-400 hover:text-white"
           >
             <X className="w-5 h-5" />
           </button>
@@ -55,7 +55,7 @@ export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }
 
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               Amount (MUSD)
             </label>
             <div className="relative">
@@ -64,40 +64,40 @@ export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
                 step="0.01"
                 min="0"
                 max={maxMintable}
               />
               <div className="absolute right-3 top-3 flex items-center space-x-2">
-                <DollarSign className="w-5 h-5 text-blue-500" />
-                <span className="text-sm font-medium">MUSD</span>
+                <DollarSign className="w-5 h-5 text-blue-400" />
+                <span className="text-sm font-medium text-gray-300">MUSD</span>
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-400 mt-1">
               Maximum: ${maxMintable.toLocaleString()} MUSD
             </p>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-medium mb-2">Loan Details</h3>
+          <div className="bg-gray-700 border border-gray-600 p-4 rounded-lg">
+            <h3 className="font-medium mb-2 text-white">Loan Details</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Current Debt:</span>
-                <span>${currentDebt.toLocaleString()} MUSD</span>
+                <span className="text-gray-300">Current Debt:</span>
+                <span className="text-white">${currentDebt.toLocaleString()} MUSD</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">New Debt:</span>
-                <span>${newDebt.toLocaleString()} MUSD</span>
+                <span className="text-gray-300">New Debt:</span>
+                <span className="text-white">${newDebt.toLocaleString()} MUSD</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Interest Rate:</span>
-                <span className="text-green-600">1% APR</span>
+                <span className="text-gray-300">Interest Rate:</span>
+                <span className="text-green-400">1% APR</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">New Collateral Ratio:</span>
-                <span className={newCollateralRatio >= 200 ? 'text-green-600' : 
-                                newCollateralRatio >= 160 ? 'text-yellow-600' : 'text-red-600'}>
+                <span className="text-gray-300">New Collateral Ratio:</span>
+                <span className={newCollateralRatio >= 200 ? 'text-green-400' : 
+                                newCollateralRatio >= 160 ? 'text-yellow-400' : 'text-red-400'}>
                   {newCollateralRatio.toFixed(0)}%
                 </span>
               </div>
@@ -105,9 +105,9 @@ export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }
           </div>
 
           {newCollateralRatio < 160 && (
-            <div className="bg-red-50 p-4 rounded-lg">
-              <h3 className="font-medium text-red-900 mb-1">⚠️ Liquidation Risk</h3>
-              <p className="text-sm text-red-700">
+            <div className="bg-red-900/20 border border-red-600/30 p-4 rounded-lg">
+              <h3 className="font-medium text-red-300 mb-1">⚠️ Liquidation Risk</h3>
+              <p className="text-sm text-red-200">
                 This amount would put your position at risk of liquidation. 
                 Consider minting less or adding more collateral.
               </p>
@@ -123,9 +123,9 @@ export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }
             />
           )}
 
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h3 className="font-medium text-blue-900 mb-1">About MUSD</h3>
-            <p className="text-sm text-blue-700">
+          <div className="bg-blue-900/20 border border-blue-600/30 p-4 rounded-lg">
+            <h3 className="font-medium text-blue-300 mb-1">About MUSD</h3>
+            <p className="text-sm text-blue-200">
               MUSD is a stablecoin backed by Bitcoin collateral. 
               You can spend it using your MezoPay card anywhere cards are accepted.
             </p>
@@ -134,7 +134,7 @@ export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }
           <div className="flex space-x-3">
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex-1 px-4 py-3 border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors"
             >
               Cancel
             </button>
