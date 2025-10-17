@@ -97,68 +97,87 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid md:grid-cols-3 gap-8 mb-16">
-        <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl text-center hover:bg-gray-750 transition-colors">
-          <div className="w-16 h-16 bitcoin-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+      {/* Key Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-2xl text-center hover:bg-gray-750 transition-all duration-200 group">
+          <div className="w-16 h-16 bitcoin-gradient rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
             <Bitcoin className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-3xl font-bold text-white mb-2">150%</h3>
-          <p className="text-gray-300">Minimum Collateral Ratio</p>
+          <h3 className="text-2xl font-bold text-white mb-2">150%</h3>
+          <p className="text-gray-300 font-medium">Minimum Collateral</p>
           <p className="text-sm text-gray-400 mt-1">Industry leading efficiency</p>
         </div>
         
-        <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl text-center hover:bg-gray-750 transition-colors">
-          <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-2xl text-center hover:bg-gray-750 transition-all duration-200 group">
+          <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
             <DollarSign className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-3xl font-bold text-white mb-2">1%</h3>
-          <p className="text-gray-300">Annual Interest Rate</p>
+          <h3 className="text-2xl font-bold text-white mb-2">1%</h3>
+          <p className="text-gray-300 font-medium">Annual Interest Rate</p>
           <p className="text-sm text-gray-400 mt-1">Fixed rate, no surprises</p>
         </div>
         
-        <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl text-center hover:bg-gray-750 transition-colors">
-          <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-2xl text-center hover:bg-gray-750 transition-all duration-200 group">
+          <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
             <CreditCard className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-3xl font-bold text-white mb-2">∞</h3>
-          <p className="text-gray-300">Global Acceptance</p>
+          <h3 className="text-2xl font-bold text-white mb-2">Global</h3>
+          <p className="text-gray-300 font-medium">Card Acceptance</p>
           <p className="text-sm text-gray-400 mt-1">Spend anywhere cards work</p>
         </div>
       </div>
 
-      {/* Features */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
-          <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
-            <CreditCard className="w-6 h-6 text-white" />
+      {/* Features Grid */}
+      <div className="mb-20">
+        <h2 className="text-3xl font-bold text-white text-center mb-12">Why Choose MezoPay?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl hover:bg-gray-750 transition-all duration-200 group">
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bitcoin-gradient rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <CreditCard className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-white">Instant Credit Access</h3>
+                <p className="text-gray-300">Get credit instantly by depositing Bitcoin as collateral. No credit checks, no waiting periods.</p>
+              </div>
+            </div>
           </div>
-          <h3 className="text-lg font-semibold mb-2 text-white">Instant Credit</h3>
-          <p className="text-gray-300 text-sm">Get credit instantly by depositing Bitcoin as collateral</p>
-        </div>
-        
-        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
-          <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
-            <Shield className="w-6 h-6 text-white" />
+          
+          <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl hover:bg-gray-750 transition-all duration-200 group">
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bitcoin-gradient rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <Shield className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-white">Secure & Decentralized</h3>
+                <p className="text-gray-300">Your Bitcoin stays in your control with smart contract security on Mezo blockchain.</p>
+              </div>
+            </div>
           </div>
-          <h3 className="text-lg font-semibold mb-2 text-white">Secure & Safe</h3>
-          <p className="text-gray-300 text-sm">Your Bitcoin stays in your control with smart contract security</p>
-        </div>
-        
-        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
-          <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
-            <Zap className="w-6 h-6 text-white" />
+          
+          <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl hover:bg-gray-750 transition-all duration-200 group">
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bitcoin-gradient rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-white">Competitive 1% APR</h3>
+                <p className="text-gray-300">Fixed 1% annual rate on your MUSD borrowing. No hidden fees or variable rates.</p>
+              </div>
+            </div>
           </div>
-          <h3 className="text-lg font-semibold mb-2 text-white">Low 1% APR</h3>
-          <p className="text-gray-300 text-sm">Fixed 1% annual rate on your MUSD borrowing</p>
-        </div>
-        
-        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl hover:bg-gray-750 transition-all duration-200">
-          <div className="w-12 h-12 bitcoin-gradient rounded-full flex items-center justify-center mb-4">
-            <TrendingUp className="w-6 h-6 text-white" />
+          
+          <div className="bg-gray-800 border border-gray-700 p-8 rounded-2xl hover:bg-gray-750 transition-all duration-200 group">
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bitcoin-gradient rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-white">Keep Bitcoin Upside</h3>
+                <p className="text-gray-300">Your Bitcoin collateral can still appreciate in value while you access liquidity.</p>
+              </div>
+            </div>
           </div>
-          <h3 className="text-lg font-semibold mb-2 text-white">Keep Upside</h3>
-          <p className="text-gray-300 text-sm">Your Bitcoin collateral can still appreciate in value</p>
         </div>
       </div>
 

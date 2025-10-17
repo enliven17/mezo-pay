@@ -1,5 +1,4 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
-import { sepolia } from 'wagmi/chains'
 
 // Mezo Testnet configuration (correct chain ID and RPC)
 const mezoTestnet = {
@@ -24,7 +23,7 @@ const mezoTestnet = {
 export const config = getDefaultConfig({
   appName: 'MezoPay',
   projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || 'demo',
-  chains: [mezoTestnet, sepolia],
+  chains: [mezoTestnet],
   ssr: true,
 })
 
