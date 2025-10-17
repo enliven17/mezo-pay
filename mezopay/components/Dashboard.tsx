@@ -47,7 +47,7 @@ export function Dashboard() {
 
   // Calculate values from blockchain data
   const collateralAmount = parseFloat(creditLine?.collateralAmount || '0')
-  const collateralValue = collateralAmount * 30000 // Assume $30k per BTC
+  const collateralValue = collateralAmount * 30000 // BTC price in USD (in production, use oracle)
   const musdMinted = parseFloat(creditLine?.musdMinted || '0')
   const accruedInterest = parseFloat(creditLine?.accruedInterest || '0')
   const totalDebt = musdMinted + accruedInterest

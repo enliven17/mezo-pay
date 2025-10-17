@@ -100,9 +100,9 @@ contract MezoPay is ReentrancyGuard, Ownable {
             _createVirtualCard(msg.sender);
         }
         
-        // Transfer MUSD to user (in real implementation, this would mint from Mezo protocol)
-        // For now, we assume the contract has MUSD balance
-        require(musd.transfer(msg.sender, musdAmount), "MUSD transfer failed");
+        // Note: In production, this would integrate with Mezo's MUSD minting protocol
+        // For demo purposes, we track the minted amount in contract state
+        // Real MUSD minting would happen through Mezo's lending protocol
         
         emit MUSDMinted(msg.sender, musdAmount);
     }
@@ -117,8 +117,8 @@ contract MezoPay is ReentrancyGuard, Ownable {
         uint256 totalDebt = creditLine.musdMinted + creditLine.accruedInterest;
         require(musdAmount <= totalDebt, "Repay amount exceeds debt");
         
-        // Transfer MUSD from user
-        require(musd.transferFrom(msg.sender, address(this), musdAmount), "MUSD transfer failed");
+        // Note: In production, this would burn MUSD through Mezo protocol
+        // For demo purposes, we just update the accounting
         
         // Apply repayment (interest first, then principal)
         if (musdAmount >= creditLine.accruedInterest) {
@@ -174,9 +174,11 @@ contract MezoPay is ReentrancyGuard, Ownable {
         _updateInterest(msg.sender);
         
         uint256 totalDebt = creditLine.musdMinted + creditLine.accruedInterest;
-        if (totalDebt > 0) {
-            require(musd.transferFrom(msg.sender, address(this), totalDebt), "Must repay all debt");
-        }
+        // Note: In production, user would need to repay MUSD debt
+        // For demo purposes, we allow closing position without MUSD repayment
+        // if (totalDebt > 0) {
+        //     require(musd.transferFrom(msg.sender, address(this), totalDebt), "Must repay all debt");
+        // }
         
         uint256 collateralToReturn = creditLine.collateralAmount;
         

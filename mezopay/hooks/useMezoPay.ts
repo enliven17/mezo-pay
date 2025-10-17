@@ -113,7 +113,7 @@ export function useMezoPay() {
     })
   }
 
-  // Approve MUSD spending
+  // Approve MUSD spending (for repayments)
   const approveMUSD = async (amount: string) => {
     writeContract({
       address: CONTRACTS.MUSD as `0x${string}`,

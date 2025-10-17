@@ -41,7 +41,7 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
           </button>
           
           <a
-            href="https://explorer.test.mezo.org/address/0x6F40A56250fbB57F5a17C815BE66A36804590669"
+            href="https://explorer.test.mezo.org/address/0xc0b33Cc720025dD0AcF56e249C8b76A6A34170B6"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"

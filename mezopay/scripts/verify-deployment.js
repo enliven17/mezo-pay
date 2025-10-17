@@ -4,7 +4,7 @@ require('dotenv').config();
 async function main() {
   console.log("🔍 Verifying MezoPay deployment...");
 
-  const contractAddress = process.env.NEXT_PUBLIC_MEZOPAY_CONTRACT || "0x6F40A56250fbB57F5a17C815BE66A36804590669";
+  const contractAddress = process.env.NEXT_PUBLIC_MEZOPAY_CONTRACT || "0xc0b33Cc720025dD0AcF56e249C8b76A6A34170B6";
   
   if (!contractAddress || contractAddress === "0x...") {
     console.error("❌ Contract address not set in environment variables");
