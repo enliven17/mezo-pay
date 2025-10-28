@@ -29,6 +29,14 @@ export const config = getDefaultConfig({
 
 // Contract addresses
 export const CONTRACTS = {
-  MEZOPAY: process.env.NEXT_PUBLIC_MEZOPAY_CONTRACT || '',
-  MUSD: '0x118917a40FAF1CD7a13dB0Ef56C86De7973Ac503',
+  MEZOPAY: process.env.NEXT_PUBLIC_MEZOPAY_CONTRACT || '0x9D5F12DBe903A0741F675e4Aa4454b2F7A010aB4',
+  MUSD: process.env.NEXT_PUBLIC_MUSD_CONTRACT || '0x118917a40FAF1CD7a13dB0Ef56C86De7973Ac503',
 } as const
+
+// Debug log for contract addresses
+console.log('Contract addresses loaded:', {
+  MEZOPAY: CONTRACTS.MEZOPAY,
+  MUSD: CONTRACTS.MUSD,
+  env_mezopay: process.env.NEXT_PUBLIC_MEZOPAY_CONTRACT,
+  env_musd: process.env.NEXT_PUBLIC_MUSD_CONTRACT
+})

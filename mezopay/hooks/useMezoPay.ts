@@ -7,7 +7,7 @@ import { MEZOPAY_ABI, MUSD_ABI } from '@/lib/contracts'
 
 export function useMezoPay() {
   const { address } = useAccount()
-  const { writeContract, data: hash, isPending } = useWriteContract()
+  const { writeContract, data: hash, isPending, error: writeError } = useWriteContract()
 
   // Read credit line info
   const { data: creditLineInfo, refetch: refetchCreditLine } = useReadContract({
@@ -48,8 +48,17 @@ export function useMezoPay() {
   })
 
   // Contract write functions
-  const depositCollateral = async (amount: string) => {
-    if (!CONTRACTS.MEZOPAY) throw new Error('Contract not deployed')
+  const depositCollateral = (amount: string) => {
+    if (!CONTRACTS.MEZOPAY) {
+      console.error('Contract not deployed, MEZOPAY address:', CONTRACTS.MEZOPAY)
+      throw new Error('Contract not deployed')
+    }
+    
+    console.log('Calling depositCollateral with:', {
+      address: CONTRACTS.MEZOPAY,
+      amount,
+      value: parseEther(amount).toString()
+    })
     
     writeContract({
       address: CONTRACTS.MEZOPAY as `0x${string}`,
@@ -59,7 +68,7 @@ export function useMezoPay() {
     })
   }
 
-  const mintMUSD = async (amount: string) => {
+  const mintMUSD = (amount: string) => {
     if (!CONTRACTS.MEZOPAY) throw new Error('Contract not deployed')
     
     writeContract({
@@ -70,7 +79,7 @@ export function useMezoPay() {
     })
   }
 
-  const repayMUSD = async (amount: string) => {
+  const repayMUSD = (amount: string) => {
     if (!CONTRACTS.MEZOPAY) throw new Error('Contract not deployed')
     
     writeContract({
@@ -81,7 +90,7 @@ export function useMezoPay() {
     })
   }
 
-  const spendWithCard = async (amount: string, merchant: string) => {
+  const spendWithCard = (amount: string, merchant: string) => {
     if (!CONTRACTS.MEZOPAY) throw new Error('Contract not deployed')
     
     writeContract({
@@ -92,7 +101,7 @@ export function useMezoPay() {
     })
   }
 
-  const freezeCard = async (freeze: boolean) => {
+  const freezeCard = (freeze: boolean) => {
     if (!CONTRACTS.MEZOPAY) throw new Error('Contract not deployed')
     
     writeContract({
@@ -103,7 +112,7 @@ export function useMezoPay() {
     })
   }
 
-  const closePosition = async () => {
+  const closePosition = () => {
     if (!CONTRACTS.MEZOPAY) throw new Error('Contract not deployed')
     
     writeContract({
@@ -114,7 +123,7 @@ export function useMezoPay() {
   }
 
   // Approve MUSD spending (for repayments)
-  const approveMUSD = async (amount: string) => {
+  const approveMUSD = (amount: string) => {
     writeContract({
       address: CONTRACTS.MUSD as `0x${string}`,
       abi: MUSD_ABI,
@@ -166,6 +175,7 @@ export function useMezoPay() {
     isPending: isPending || isConfirming,
     isConfirmed,
     hash,
+    writeError,
     
     // Refetch functions
     refetch: () => {

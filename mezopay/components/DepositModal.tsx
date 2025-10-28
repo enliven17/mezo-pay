@@ -10,20 +10,34 @@ interface DepositModalProps {
 }
 
 export function DepositModal({ onClose }: DepositModalProps) {
-  const { depositCollateral, isPending, isConfirmed, hash, creditLine } = useMezoPay()
+  const { depositCollateral, isPending, isConfirmed, hash, creditLine, writeError } = useMezoPay()
   const [amount, setAmount] = useState('')
   const [error, setError] = useState('')
+  
+  // Debug log
+  console.log('DepositModal state:', { isPending, isConfirmed, hash, error, writeError })
+  
+  // Handle write errors
+  useEffect(() => {
+    if (writeError) {
+      setError(writeError.message || 'Transaction failed')
+    }
+  }, [writeError])
 
   const btcPrice = 30000 // BTC price from smart contract oracle
   const usdValue = parseFloat(amount) * btcPrice || 0
   const currentCollateral = parseFloat(creditLine?.collateralAmount || '0')
 
-  const handleDeposit = async () => {
-    if (!amount || parseFloat(amount) <= 0) return
+  const handleDeposit = () => {
+    if (!amount || parseFloat(amount) <= 0) {
+      setError('Please enter a valid amount')
+      return
+    }
     
     try {
       setError('')
-      await depositCollateral(amount)
+      console.log('Depositing:', amount, 'BTC')
+      depositCollateral(amount)
     } catch (error) {
       console.error('Deposit failed:', error)
       setError(error instanceof Error ? error.message : 'Transaction failed')
@@ -98,11 +112,11 @@ export function DepositModal({ onClose }: DepositModalProps) {
           </div>
 
           {/* Transaction Status */}
-          {(isPending || isConfirmed || error) && (
+          {(isPending || isConfirmed || error || writeError) && (
             <TransactionStatus 
-              status={error ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
+              status={error || writeError ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
               hash={hash}
-              message={error}
+              message={error || writeError?.message}
             />
           )}
 

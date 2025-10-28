@@ -8,14 +8,16 @@ import { CollateralHealth } from './CollateralHealth'
 import { TransactionHistory } from './TransactionHistory'
 import { DepositModal } from './DepositModal'
 import { MintModal } from './MintModal'
+import { RepayModal } from './RepayModal'
 import { useMezoPay } from '@/hooks/useMezoPay'
 import { useAccount } from 'wagmi'
 
 export function Dashboard() {
   const { isConnected } = useAccount()
-  const { creditLine, refetch } = useMezoPay()
+  const { creditLine, musdBalance, refetch } = useMezoPay()
   const [showDepositModal, setShowDepositModal] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
+  const [showRepayModal, setShowRepayModal] = useState(false)
 
   // Refetch data periodically
   useEffect(() => {
@@ -124,14 +126,9 @@ export function Dashboard() {
         </button>
         
         <button 
-          onClick={() => {
-            const amount = prompt(`Enter MUSD amount to repay (Current debt: ${totalDebt.toFixed(2)} MUSD):`)
-            if (amount && parseFloat(amount) > 0) {
-              // This would call repayMUSD from useMezoPay
-              console.log(`Repaying ${amount} MUSD`)
-            }
-          }}
-          className="flex items-center space-x-2 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors"
+          onClick={() => setShowRepayModal(true)}
+          disabled={totalDebt === 0}
+          className="flex items-center space-x-2 bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           <ArrowDownLeft className="w-5 h-5" />
           <span>Repay Debt</span>
@@ -192,6 +189,14 @@ export function Dashboard() {
           maxMintable={availableCredit}
           currentDebt={totalDebt}
           collateralValue={collateralValue}
+        />
+      )}
+      
+      {showRepayModal && (
+        <RepayModal 
+          onClose={() => setShowRepayModal(false)}
+          currentDebt={totalDebt}
+          musdBalance={musdBalance}
         />
       )}
     </div>
