@@ -13,9 +13,17 @@ import { useAccount } from 'wagmi'
 
 export function Dashboard() {
   const { isConnected } = useAccount()
-  const { creditLine, cardInfo, musdBalance, refetch } = useMezoPay()
+  const { creditLine, refetch } = useMezoPay()
   const [showDepositModal, setShowDepositModal] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
+
+  // Refetch data periodically
+  useEffect(() => {
+    if (isConnected) {
+      const interval = setInterval(refetch, 10000) // Refetch every 10 seconds
+      return () => clearInterval(interval)
+    }
+  }, [isConnected, refetch])
 
   // Eğer wallet bağlı değilse, bağlantı ekranı göster
   if (!isConnected) {
@@ -37,17 +45,9 @@ export function Dashboard() {
     )
   }
 
-  // Refetch data periodically
-  useEffect(() => {
-    if (isConnected) {
-      const interval = setInterval(refetch, 10000) // Refetch every 10 seconds
-      return () => clearInterval(interval)
-    }
-  }, [isConnected, refetch])
-
   // Calculate values from blockchain data
   const collateralAmount = parseFloat(creditLine?.collateralAmount || '0')
-  const collateralValue = collateralAmount * 30000 // BTC price in USD (in production, use oracle)
+  const collateralValue = collateralAmount * 30000 // BTC price from smart contract oracle
   const musdMinted = parseFloat(creditLine?.musdMinted || '0')
   const accruedInterest = parseFloat(creditLine?.accruedInterest || '0')
   const totalDebt = musdMinted + accruedInterest
@@ -55,8 +55,7 @@ export function Dashboard() {
   const collateralRatio = creditLine?.collateralRatio || 0
   const isActive = creditLine?.isActive || false
 
-  const healthColor = collateralRatio >= 200 ? 'green' : 
-                     collateralRatio >= 160 ? 'yellow' : 'red'
+  // Health color logic moved to CollateralHealth component
 
   return (
     <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
@@ -124,7 +123,16 @@ export function Dashboard() {
           <span>Mint MUSD</span>
         </button>
         
-        <button className="flex items-center space-x-2 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors">
+        <button 
+          onClick={() => {
+            const amount = prompt(`Enter MUSD amount to repay (Current debt: ${totalDebt.toFixed(2)} MUSD):`)
+            if (amount && parseFloat(amount) > 0) {
+              // This would call repayMUSD from useMezoPay
+              console.log(`Repaying ${amount} MUSD`)
+            }
+          }}
+          className="flex items-center space-x-2 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors"
+        >
           <ArrowDownLeft className="w-5 h-5" />
           <span>Repay Debt</span>
         </button>

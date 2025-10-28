@@ -280,9 +280,10 @@ contract MezoPay is ReentrancyGuard, Ownable {
     }
     
     function _getCollateralValue(uint256 btcAmount) internal view returns (uint256) {
-        // In production, use Chainlink or other oracle
-        // For demo, assume 1 BTC = $30,000
-        return (btcAmount * 30000) / 1e18;
+        // Using fixed price for Mezo testnet
+        // In production, integrate with Mezo's native price feeds
+        uint256 btcPriceUSD = 30000; // $30,000 per BTC
+        return (btcAmount * btcPriceUSD) / 1e18;
     }
     
     function _getAvailableCredit(address user) internal view returns (uint256) {

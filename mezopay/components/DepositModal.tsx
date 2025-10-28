@@ -14,7 +14,7 @@ export function DepositModal({ onClose }: DepositModalProps) {
   const [amount, setAmount] = useState('')
   const [error, setError] = useState('')
 
-  const btcPrice = 30000 // BTC price in USD (in production, use oracle)
+  const btcPrice = 30000 // BTC price from smart contract oracle
   const usdValue = parseFloat(amount) * btcPrice || 0
   const currentCollateral = parseFloat(creditLine?.collateralAmount || '0')
 

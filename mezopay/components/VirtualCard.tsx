@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Eye, EyeOff, Copy, Freeze } from 'lucide-react'
+import { Eye, EyeOff, Copy, Lock } from 'lucide-react'
 import { useMezoPay } from '@/hooks/useMezoPay'
 
 export function VirtualCard() {
@@ -40,7 +40,7 @@ export function VirtualCard() {
               isFrozen ? 'bg-red-900/30 text-red-400' : 'bg-gray-700 text-gray-300'
             } ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            <Freeze className="w-4 h-4" />
+            <Lock className="w-4 h-4" />
             <span>{isFrozen ? 'Frozen' : 'Active'}</span>
           </button>
         )}
@@ -82,7 +82,7 @@ export function VirtualCard() {
         {isFrozen && (
           <div className="absolute inset-0 bg-black/50 rounded-xl flex items-center justify-center">
             <div className="text-center">
-              <Freeze className="w-8 h-8 mx-auto mb-2" />
+              <Lock className="w-8 h-8 mx-auto mb-2" />
               <p className="text-sm font-medium">Card Frozen</p>
             </div>
           </div>
@@ -152,6 +152,25 @@ export function VirtualCard() {
               <span className="text-gray-300">Monthly Spent</span>
               <span className="font-medium text-white">${parseFloat(cardInfo.monthlySpent).toLocaleString()}</span>
             </div>
+          </div>
+        )}
+
+        {cardExists && (
+          <div className="pt-4 border-t border-gray-600">
+            <button
+              onClick={() => {
+                // Demo spending functionality
+                const merchant = prompt('Enter merchant name:')
+                const amount = prompt('Enter amount in MUSD:')
+                if (merchant && amount) {
+                  // This would call spendWithCard from useMezoPay
+                  console.log(`Spending ${amount} MUSD at ${merchant}`)
+                }
+              }}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+            >
+              Test Card Payment
+            </button>
           </div>
         )}
 
