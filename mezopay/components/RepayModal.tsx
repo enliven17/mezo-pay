@@ -12,18 +12,11 @@ interface RepayModalProps {
 }
 
 export function RepayModal({ onClose, currentDebt, musdBalance }: RepayModalProps) {
-  const { repayMUSD, approveMUSD, isPending, isConfirmed, hash, writeError } = useMezoPay()
+  const { repayMUSD, approveMUSD, isPending, isConfirmed, hash } = useMezoPay()
   const [amount, setAmount] = useState('')
   const [error, setError] = useState('')
   const [needsApproval, setNeedsApproval] = useState(true)
   const [isApproving, setIsApproving] = useState(false)
-  
-  // Handle write errors
-  useEffect(() => {
-    if (writeError) {
-      setError(writeError.message || 'Transaction failed')
-    }
-  }, [writeError])
 
   const repayAmount = parseFloat(amount) || 0
   const availableBalance = parseFloat(musdBalance)
@@ -139,11 +132,11 @@ export function RepayModal({ onClose, currentDebt, musdBalance }: RepayModalProp
           )}
 
           {/* Transaction Status */}
-          {(isPending || isConfirmed || error || writeError) && (
+          {(isPending || isConfirmed || error) && (
             <TransactionStatus 
-              status={error || writeError ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
+              status={error ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
               hash={hash}
-              message={error || writeError?.message}
+              message={error}
             />
           )}
 

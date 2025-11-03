@@ -14,16 +14,40 @@ import { useAccount } from 'wagmi'
 
 export function Dashboard() {
   const { isConnected } = useAccount()
-  const { creditLine, musdBalance, refetch } = useMezoPay()
+  const { creditLine, musdBalance, refetch, getDemoMusdBalance } = useMezoPay()
   const [showDepositModal, setShowDepositModal] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
   const [showRepayModal, setShowRepayModal] = useState(false)
+  const [demoBalance, setDemoBalance] = useState('0')
 
-  // Refetch data periodically
+  // Update demo balance periodically
   useEffect(() => {
     if (isConnected) {
-      const interval = setInterval(refetch, 10000) // Refetch every 10 seconds
+      const updateBalance = () => {
+        const balance = getDemoMusdBalance()
+        setDemoBalance(balance)
+      }
+      updateBalance()
+      const interval = setInterval(updateBalance, 1000) // Update every second
       return () => clearInterval(interval)
+    }
+  }, [isConnected, getDemoMusdBalance])
+
+  // Debug MUSD balance
+  console.log('Dashboard MUSD balance:', { musdBalance, demoBalance })
+
+  // Refetch data periodically and after transactions
+  useEffect(() => {
+    if (isConnected) {
+      const interval = setInterval(refetch, 5000) // Refetch every 5 seconds
+      return () => clearInterval(interval)
+    }
+  }, [isConnected, refetch])
+
+  // Force refetch when component mounts
+  useEffect(() => {
+    if (isConnected) {
+      refetch()
     }
   }, [isConnected, refetch])
 
@@ -57,12 +81,36 @@ export function Dashboard() {
   const collateralRatio = creditLine?.collateralRatio || 0
   const isActive = creditLine?.isActive || false
 
+  // Debug log for credit line data
+  console.log('Dashboard credit line data:', {
+    collateralAmount,
+    collateralValue,
+    musdMinted,
+    accruedInterest,
+    totalDebt,
+    availableCredit,
+    collateralRatio,
+    isActive,
+    rawCreditLine: creditLine
+  })
+
+  // Manual calculation of available credit
+  const maxBorrowable = collateralValue / 1.5 // 150% collateral ratio = 66.67% LTV
+  const manualAvailableCredit = Math.max(0, maxBorrowable - totalDebt)
+  
+  console.log('Manual calculation:', {
+    maxBorrowable,
+    manualAvailableCredit,
+    collateralValue,
+    totalDebt
+  })
+
   // Health color logic moved to CollateralHealth component
 
   return (
     <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
       {/* Header Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
         <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-2xl hover:bg-gray-750 transition-colors">
           <div className="flex items-center justify-between">
             <div>
@@ -83,8 +131,12 @@ export function Dashboard() {
               <p className="text-2xl font-bold text-white">${totalDebt.toLocaleString()}</p>
               <p className="text-sm text-gray-400">1% APR</p>
             </div>
-            <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">M</span>
+            <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center p-2">
+              <img 
+                src="/mezo.png" 
+                alt="Mezo Logo" 
+                className="w-full h-full rounded-full"
+              />
             </div>
           </div>
         </div>
@@ -98,6 +150,23 @@ export function Dashboard() {
             </div>
             <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
               <CreditCard className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-2xl hover:bg-gray-750 transition-colors">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-300">MUSD Balance</p>
+              <p className="text-2xl font-bold text-white">${parseFloat(demoBalance).toLocaleString()}</p>
+              <p className="text-sm text-gray-400">Available to spend</p>
+            </div>
+            <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center p-2">
+              <img 
+                src="/mezo.png" 
+                alt="Mezo Logo" 
+                className="w-full h-full rounded-full"
+              />
             </div>
           </div>
         </div>
@@ -186,7 +255,7 @@ export function Dashboard() {
       {showMintModal && (
         <MintModal 
           onClose={() => setShowMintModal(false)}
-          maxMintable={availableCredit}
+          maxMintable={manualAvailableCredit}
           currentDebt={totalDebt}
           collateralValue={collateralValue}
         />

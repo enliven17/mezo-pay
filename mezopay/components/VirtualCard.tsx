@@ -5,20 +5,40 @@ import { Eye, EyeOff, Copy, Lock, CreditCard } from 'lucide-react'
 import { useMezoPay } from '@/hooks/useMezoPay'
 
 export function VirtualCard() {
-  const { cardInfo, freezeCard, isPending } = useMezoPay()
+  const { cardInfo, freezeCard, isPending, getDemoCardExists, getDemoMusdBalance } = useMezoPay()
   const [showDetails, setShowDetails] = useState(false)
   const [isFlipped, setIsFlipped] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const cardRef = useRef<HTMLDivElement>(null)
 
-  const cardExists = cardInfo && cardInfo.cardNumber
-  const isFrozen = cardInfo ? !cardInfo.isActive : false
+  // Debug log for card info
+  console.log('VirtualCard cardInfo:', cardInfo)
 
-  const cardDetails = cardExists ? {
+  // Check if demo card should exist (user has MUSD balance)
+  const demoCardExists = getDemoCardExists()
+  const demoBalance = parseFloat(getDemoMusdBalance())
+  
+  const cardExists = (cardInfo && cardInfo.cardNumber && cardInfo.cardNumber !== '') || demoCardExists
+  const isFrozen = cardInfo ? !cardInfo.isActive : false
+  
+  console.log('VirtualCard state:', { 
+    cardExists, 
+    isFrozen, 
+    cardNumber: cardInfo?.cardNumber,
+    demoCardExists,
+    demoBalance
+  })
+
+  const cardDetails = cardExists && cardInfo ? {
     number: cardInfo.cardNumber,
     expiry: cardInfo.expiryDate,
     cvv: cardInfo.cvv,
     name: cardInfo.holderName
+  } : cardExists ? {
+    number: '4532 •••• •••• ••••',
+    expiry: '12/28',
+    cvv: '123',
+    name: 'MEZOPAY USER'
   } : {
     number: '•••• •••• •••• ••••',
     expiry: '••/••',
@@ -95,8 +115,12 @@ export function VirtualCard() {
                   <p className="text-sm opacity-90 font-medium">MezoPay Card</p>
                   <p className="text-xs opacity-75">Bitcoin Backed</p>
                 </div>
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                  <span className="text-lg font-bold">M</span>
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm p-2">
+                  <img 
+                    src="/mezo.png" 
+                    alt="Mezo Logo" 
+                    className="w-full h-full rounded-full"
+                  />
                 </div>
               </div>
 

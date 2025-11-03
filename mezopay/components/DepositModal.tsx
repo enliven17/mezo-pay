@@ -10,19 +10,12 @@ interface DepositModalProps {
 }
 
 export function DepositModal({ onClose }: DepositModalProps) {
-  const { depositCollateral, isPending, isConfirmed, hash, creditLine, writeError } = useMezoPay()
+  const { depositCollateral, isPending, isConfirmed, hash, creditLine, refetch } = useMezoPay()
   const [amount, setAmount] = useState('')
   const [error, setError] = useState('')
   
   // Debug log
-  console.log('DepositModal state:', { isPending, isConfirmed, hash, error, writeError })
-  
-  // Handle write errors
-  useEffect(() => {
-    if (writeError) {
-      setError(writeError.message || 'Transaction failed')
-    }
-  }, [writeError])
+  console.log('DepositModal state:', { isPending, isConfirmed, hash, error })
 
   const btcPrice = 30000 // BTC price from smart contract oracle
   const usdValue = parseFloat(amount) * btcPrice || 0
@@ -43,13 +36,26 @@ export function DepositModal({ onClose }: DepositModalProps) {
       setError(error instanceof Error ? error.message : 'Transaction failed')
     }
   }
+  
+  // Monitor writeError from hook
+  const { writeError } = useMezoPay()
+  useEffect(() => {
+    if (writeError) {
+      console.error('Write error from hook:', writeError)
+      setError(writeError.message || 'Transaction failed')
+    }
+  }, [writeError])
 
   // Close modal when transaction is confirmed
   useEffect(() => {
     if (isConfirmed) {
-      onClose()
+      console.log('Deposit confirmed, refetching data...')
+      refetch() // Refresh all contract data
+      setTimeout(() => {
+        onClose()
+      }, 1000) // Wait 1 second before closing to show success
     }
-  }, [isConfirmed, onClose])
+  }, [isConfirmed, onClose, refetch])
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
@@ -112,11 +118,11 @@ export function DepositModal({ onClose }: DepositModalProps) {
           </div>
 
           {/* Transaction Status */}
-          {(isPending || isConfirmed || error || writeError) && (
+          {(isPending || isConfirmed || error) && (
             <TransactionStatus 
-              status={error || writeError ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
+              status={error ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
               hash={hash}
-              message={error || writeError?.message}
+              message={error}
             />
           )}
 

@@ -13,39 +13,92 @@ interface MintModalProps {
 }
 
 export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }: MintModalProps) {
-  const { mintMUSD, isPending, isConfirmed, hash, writeError } = useMezoPay()
+  const { mintMUSD, isPending, isConfirmed, hash, refetch, writeError } = useMezoPay()
   const [amount, setAmount] = useState('')
   const [error, setError] = useState('')
-  
-  // Handle write errors
-  useEffect(() => {
-    if (writeError) {
-      setError(writeError.message || 'Transaction failed')
-    }
-  }, [writeError])
+
+  // Detailed debug log
+  console.log('MintModal detailed state:', {
+    amount,
+    maxMintable,
+    currentDebt,
+    collateralValue,
+    isPending,
+    isConfirmed,
+    hash,
+    writeError,
+    mintAmount: parseFloat(amount) || 0
+  })
 
   const mintAmount = parseFloat(amount) || 0
   const newDebt = currentDebt + mintAmount
   const newCollateralRatio = newDebt > 0 ? (collateralValue / newDebt) * 100 : 0
 
   const handleMint = () => {
-    if (!amount || mintAmount <= 0 || mintAmount > maxMintable) return
+    console.log('Mint MUSD clicked:', { amount, mintAmount, maxMintable })
+    
+    if (!amount || mintAmount <= 0) {
+      setError('Please enter a valid amount')
+      return
+    }
+    
+    if (mintAmount > maxMintable) {
+      setError(`Amount exceeds maximum mintable: ${maxMintable}`)
+      return
+    }
     
     try {
       setError('')
+      console.log('Calling mintMUSD with amount:', amount)
       mintMUSD(amount)
     } catch (error) {
       console.error('Mint failed:', error)
       setError(error instanceof Error ? error.message : 'Transaction failed')
     }
   }
+  
+  // Monitor writeError from hook
+  useEffect(() => {
+    if (writeError) {
+      console.error('Mint write error from hook:', writeError)
+      setError(writeError.message || 'Transaction failed')
+    }
+  }, [writeError])
 
   // Close modal when transaction is confirmed
   useEffect(() => {
-    if (isConfirmed) {
-      onClose()
+    if (isConfirmed && hash && amount) {
+      console.log('Transaction confirmed, refetching data...')
+      
+      // Add demo transaction to history
+      const demoTx = {
+        id: hash,
+        type: 'mint' as const,
+        description: 'MUSD Minted (Demo)',
+        amount: parseFloat(amount).toFixed(2),
+        currency: 'MUSD' as const,
+        hash: hash,
+        timestamp: Date.now(),
+        status: 'completed' as const
+      }
+      
+      // Add to localStorage for persistence
+      if (typeof window !== 'undefined') {
+        const address = window.ethereum?.selectedAddress
+        if (address) {
+          const stored = localStorage.getItem(`demo_transactions_${address}`)
+          const current = stored ? JSON.parse(stored) : []
+          const updated = [demoTx, ...current.filter((t: any) => t.id !== demoTx.id)]
+          localStorage.setItem(`demo_transactions_${address}`, JSON.stringify(updated))
+        }
+      }
+      
+      refetch() // Refresh all contract data
+      setTimeout(() => {
+        onClose()
+      }, 1000) // Wait 1 second before closing to show success
     }
-  }, [isConfirmed, onClose])
+  }, [isConfirmed, onClose, refetch, hash, amount])
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
@@ -122,11 +175,11 @@ export function MintModal({ onClose, maxMintable, currentDebt, collateralValue }
           )}
 
           {/* Transaction Status */}
-          {(isPending || isConfirmed || error || writeError) && (
+          {(isPending || isConfirmed || error) && (
             <TransactionStatus 
-              status={error || writeError ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
+              status={error ? 'error' : isConfirmed ? 'success' : isPending ? 'confirming' : 'pending'}
               hash={hash}
-              message={error || writeError?.message}
+              message={error}
             />
           )}
 

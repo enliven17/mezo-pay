@@ -8,6 +8,11 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'MezoPay - Bitcoin Credit Card',
   description: 'Spend your Bitcoin anywhere with MUSD-backed credit cards',
+  icons: {
+    icon: '/mezo.png',
+    shortcut: '/mezo.png',
+    apple: '/mezo.png',
+  },
 }
 
 export default function RootLayout({

@@ -13,9 +13,12 @@ export default function Home() {
   const [showDashboard, setShowDashboard] = useState(false)
 
   const handleLaunchDapp = () => {
+    console.log('Launch dApp clicked!', { isConnected, showDashboard })
     if (isConnected) {
+      console.log('User is connected, showing dashboard')
       setShowDashboard(true)
     } else {
+      console.log('User not connected, showing dashboard anyway')
       // Wallet bağlantısı gerekiyor, ConnectButton'a tıklamaya yönlendir
       // Bu durumda modal açılacak veya wallet bağlantısı başlatılacak
       setShowDashboard(true) // Dashboard'a git, orada wallet bağlantısı isteyeceğiz
@@ -28,10 +31,12 @@ export default function Home() {
       <SimpleAnimatedBackground />
       
       <nav className="relative z-10 flex justify-between items-center p-6 bg-black/20 backdrop-blur-sm border-b border-white/10">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bitcoin-gradient rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-sm">M</span>
-          </div>
+        <div className="flex items-center space-x-3">
+          <img 
+            src="/mezo.png" 
+            alt="Mezo Logo" 
+            className="w-8 h-8 rounded-full"
+          />
           <h1 className="text-2xl font-bold text-white">MezoPay</h1>
         </div>
         

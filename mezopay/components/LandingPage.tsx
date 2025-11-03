@@ -13,7 +13,11 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
       <div className="text-center mb-16">
         <div className="mb-8">
           <div className="inline-flex items-center space-x-2 bg-bitcoin/10 text-bitcoin px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Bitcoin className="w-4 h-4" />
+            <img 
+              src="/mezo.png" 
+              alt="Mezo Logo" 
+              className="w-4 h-4 rounded-full"
+            />
             <span>Live on Mezo Testnet</span>
           </div>
         </div>
@@ -32,12 +36,14 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <button
-            onClick={onLaunchDapp}
-            className="flex items-center space-x-3 bg-bitcoin text-white px-8 py-4 rounded-xl hover:bg-orange-600 transition-all duration-200 transform hover:scale-105 shadow-lg"
+            onClick={() => {
+              console.log('Launch dApp button clicked in LandingPage')
+              onLaunchDapp()
+            }}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold transition-colors cursor-pointer"
+            style={{ zIndex: 1000, position: 'relative' }}
           >
-            <Rocket className="w-6 h-6" />
-            <span className="text-lg font-semibold">Launch dApp</span>
-            <ArrowRight className="w-5 h-5" />
+            🚀 Launch dApp
           </button>
           
           <a
@@ -63,8 +69,12 @@ export function LandingPage({ onLaunchDapp }: LandingPageProps) {
                   <p className="text-sm opacity-90">MezoPay Card</p>
                   <p className="text-xs opacity-75">Bitcoin Backed</p>
                 </div>
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-lg font-bold">M</span>
+                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center p-2">
+                  <img 
+                    src="/mezo.png" 
+                    alt="Mezo Logo" 
+                    className="w-full h-full rounded-full"
+                  />
                 </div>
               </div>
               
